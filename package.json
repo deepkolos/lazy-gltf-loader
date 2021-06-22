@@ -2,9 +2,6 @@
   "name": "lazy-gltf-loader",
   "version": "1.0.0",
   "description": "一个能让 GLTF 局部懒加载的 Loader",
-  "directories": {
-    "example": "examples"
-  },
   "main": "dist/lazy-gltf-loader.cjs.js",
   "module": "dist/lazy-gltf-loader.esm.js",
   "browser": "dist/lazy-gltf-loader.umd.js",
@@ -17,6 +14,7 @@
     "prepublish": "npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "types": "types/lazy-gltf-loader.d.ts",
   "keywords": [
     "GLTF",
     "GLTFLoader",
@@ -25,7 +23,8 @@
   "author": "DeepKolos<deepkolos@qq.com>",
   "license": "MIT",
   "dependencies": {
-    "three": "^0.129.0"
+    "three": "^0.129.0",
+    "@types/three": "^0.129.1"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^19.0.0",
