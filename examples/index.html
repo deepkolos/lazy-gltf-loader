@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LazyGLTFLoader</title>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+      }
+      canvas {
+        display: block;
+      }
+    </style>
+  </head>
+  <body></body>
+  <script src="https://threejs.org/build/three.min.js"></script>
+  <script src="https://threejs.org/examples/js/controls/OrbitControls.js"></script>
+  <script src="../dist/lazy-gltf-loader.umd.js"></script>
+  <script>
+    const THREE = window.THREE;
+    const LazyGLTFLoader = window.LazyGLTFLoader.LazyGLTFLoader;
+
+    const { innerWidth: w, innerHeight: h } = window;
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    const camera = new THREE.PerspectiveCamera(75, w / h, 0.1, 100);
+    const scene = new THREE.Scene();
+    const clock = new THREE.Clock();
+    const gltfLoader = new LazyGLTFLoader();
+    const mixer = new THREE.AnimationMixer(scene);
+    const controls = new THREE.OrbitControls(camera, renderer.domElement);
+
+    controls.enableDamping = true;
+    camera.position.z = 0.5;
+    renderer.setPixelRatio(devicePixelRatio);
+    renderer.setSize(w, h);
+    renderer.outputEncoding = THREE.sRGBEncoding;
+    scene.background = new THREE.Color(0x123456);
+    scene.add(new THREE.AmbientLight(0xffffff, 1));
+    scene.add(new THREE.DirectionalLight(0xffffff, 1));
+
+    const loadAsync = (url, cfg) =>
+      new Promise((resolve, reject) => {
+        gltfLoader.load(url, resolve, cfg, reject);
+      });
+
+    // include test case
+    loadAsync('./banzi2/banzi2.gltf', { include: ['FENDI_PAIZI'] }).then(
+      gltf => {
+        console.log(gltf);
+        gltf.scene.position.x = -0.11;
+
+        scene.add(gltf.scene);
+        playAnimation(gltf, 'an1_FENDI_PAIZI.000');
+
+        once('click', () => {
+          gltf.parser.lazyNode('FENDI_PAIZI.001').then(mesh => {
+            mesh.position.x = 0.22;
+            playAnimation(gltf, 'an1_FENDI_PAIZI.001');
+          });
+        });
+      },
+    );
+
+    // exclude test case
+    loadAsync('./banzi2/banzi2.gltf', { exclude: ['FENDI_PAIZI'] }).then(
+      gltf => {
+        console.log(gltf);
+        gltf.scene.position.x = 0.11;
+
+        scene.add(gltf.scene);
+        playAnimation(gltf, 'an1_FENDI_PAIZI.001');
+
+        once('click', () => {
+          gltf.parser.lazyNode('FENDI_PAIZI').then(mesh => {
+            mesh.position.x = 0.22;
+            playAnimation(gltf, 'an1_FENDI_PAIZI.000');
+          });
+        });
+      },
+    );
+
+    loadAsync('./banzi+bag/banzi+bag.gltf', {
+      include: ['FENDI_PAIZI', 'close-brown'],
+    }).then(gltf => {
+      console.log(gltf);
+      gltf.scene.position.z = -0.5;
+      scene.add(gltf.scene);
+
+      const t = Date.now();
+      gltf.parser
+        .lazyNodes(['FENDI_PAIZI', 'close-brown'])
+        .then(([banziNode, closeNode]) => {
+          banziNode.position.y = 0.5;
+          closeNode.rotation.y = (Math.PI / 180) * 45;
+          console.log('lazyNode', Date.now() - t);
+        });
+
+      // const t0 = Date.now();
+      // gltf.scene.traverse(node => {
+      //   if (node.name === 'FENDI_PAIZI') {
+      //     node.position.y = 0.5;
+      //   }
+      //   if (node.name === 'close-brown') {
+      //     node.rotation.y = (Math.PI / 180) * 45;
+      //   }
+      // });
+      // console.log('traverse', Date.now() - t0);
+
+      once('click', () => {
+        gltf.parser
+          .lazyNodes(['FENDI_PAIZI.001', 'close-red'])
+          .then(([banziNode, closeNode]) => {
+            banziNode.position.x = 0.5;
+            banziNode.position.y = 0.5;
+            // closeNode.position.x = 0.5;
+            closeNode.rotation.y = (Math.PI / 180) * 45;
+          });
+      });
+    });
+
+    const render = () => {
+      mixer?.update(clock.getDelta());
+      controls.update();
+      renderer.render(scene, camera);
+      requestAnimationFrame(render);
+    };
+
+    document.body.append(renderer.domElement);
+    render();
+
+    window.onresize = () => {
+      renderer.setSize(innerWidth, innerHeight);
+      camera.aspect = innerWidth / innerHeight;
+      camera.updateProjectionMatrix();
+    };
+
+    // utils
+    function playAnimation(gltf, name) {
+      gltf.parser.lazyAnimation(name).then(animation => {
+        mixer.clipAction(animation, gltf.scene).play();
+      });
+    }
+    function once(evt, cb) {
+      const _cb = e => {
+        cb(e);
+        window.removeEventListener(evt, _cb);
+      };
+      window.addEventListener(evt, _cb);
+    }
+  </script>
+</html>

@@ -1,0 +1,529 @@
+{
+    "asset" : {
+        "generator" : "Khronos glTF Blender I/O v1.6.16",
+        "version" : "2.0"
+    },
+    "extensionsUsed" : [
+        "KHR_materials_unlit"
+    ],
+    "scene" : 0,
+    "scenes" : [
+        {
+            "name" : "Scene",
+            "nodes" : [
+                0,
+                1
+            ]
+        }
+    ],
+    "nodes" : [
+        {
+            "mesh" : 0,
+            "name" : "FENDI_PAIZI"
+        },
+        {
+            "mesh" : 1,
+            "name" : "FENDI_PAIZI.001"
+        }
+    ],
+    "animations" : [
+        {
+            "channels" : [
+                {
+                    "sampler" : 0,
+                    "target" : {
+                        "node" : 0,
+                        "path" : "rotation"
+                    }
+                },
+                {
+                    "sampler" : 1,
+                    "target" : {
+                        "node" : 0,
+                        "path" : "translation"
+                    }
+                },
+                {
+                    "sampler" : 2,
+                    "target" : {
+                        "node" : 1,
+                        "path" : "rotation"
+                    }
+                },
+                {
+                    "sampler" : 3,
+                    "target" : {
+                        "node" : 1,
+                        "path" : "translation"
+                    }
+                }
+            ],
+            "name" : "an1",
+            "samplers" : [
+                {
+                    "input" : 8,
+                    "interpolation" : "LINEAR",
+                    "output" : 9
+                },
+                {
+                    "input" : 8,
+                    "interpolation" : "LINEAR",
+                    "output" : 10
+                },
+                {
+                    "input" : 8,
+                    "interpolation" : "LINEAR",
+                    "output" : 11
+                },
+                {
+                    "input" : 8,
+                    "interpolation" : "LINEAR",
+                    "output" : 12
+                }
+            ]
+        },
+        {
+            "channels" : [
+                {
+                    "sampler" : 0,
+                    "target" : {
+                        "node" : 0,
+                        "path" : "rotation"
+                    }
+                },
+                {
+                    "sampler" : 1,
+                    "target" : {
+                        "node" : 0,
+                        "path" : "translation"
+                    }
+                }
+            ],
+            "name" : "an1_FENDI_PAIZI.000",
+            "samplers" : [
+                {
+                    "input" : 8,
+                    "interpolation" : "LINEAR",
+                    "output" : 13
+                },
+                {
+                    "input" : 8,
+                    "interpolation" : "LINEAR",
+                    "output" : 14
+                }
+            ]
+        },
+        {
+            "channels" : [
+                {
+                    "sampler" : 0,
+                    "target" : {
+                        "node" : 1,
+                        "path" : "rotation"
+                    }
+                },
+                {
+                    "sampler" : 1,
+                    "target" : {
+                        "node" : 1,
+                        "path" : "translation"
+                    }
+                }
+            ],
+            "name" : "an1_FENDI_PAIZI.001",
+            "samplers" : [
+                {
+                    "input" : 8,
+                    "interpolation" : "LINEAR",
+                    "output" : 15
+                },
+                {
+                    "input" : 8,
+                    "interpolation" : "LINEAR",
+                    "output" : 16
+                }
+            ]
+        }
+    ],
+    "materials" : [
+        {
+            "extensions" : {
+                "KHR_materials_unlit" : {}
+            },
+            "name" : "ban_Unlit",
+            "pbrMetallicRoughness" : {
+                "baseColorTexture" : {
+                    "index" : 0
+                },
+                "metallicFactor" : 0,
+                "roughnessFactor" : 0.9
+            }
+        },
+        {
+            "alphaMode" : "BLEND",
+            "name" : "FINDI_TOUMING",
+            "normalTexture" : {
+                "index" : 1
+            },
+            "pbrMetallicRoughness" : {
+                "baseColorTexture" : {
+                    "index" : 2
+                },
+                "metallicFactor" : 0.24590164422988892,
+                "roughnessFactor" : 0.2185792326927185
+            }
+        },
+        {
+            "extensions" : {
+                "KHR_materials_unlit" : {}
+            },
+            "name" : "ban_Unlit.001",
+            "pbrMetallicRoughness" : {
+                "baseColorTexture" : {
+                    "index" : 3
+                },
+                "metallicFactor" : 0,
+                "roughnessFactor" : 0.9
+            }
+        },
+        {
+            "alphaMode" : "BLEND",
+            "name" : "FINDI_TOUMING.001",
+            "normalTexture" : {
+                "index" : 4
+            },
+            "pbrMetallicRoughness" : {
+                "baseColorTexture" : {
+                    "index" : 5
+                },
+                "metallicFactor" : 0.24590164422988892,
+                "roughnessFactor" : 0.2185792326927185
+            }
+        }
+    ],
+    "meshes" : [
+        {
+            "name" : "FENDI_PAIZI",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 0,
+                        "NORMAL" : 1,
+                        "TEXCOORD_0" : 2
+                    },
+                    "indices" : 3,
+                    "material" : 0
+                },
+                {
+                    "attributes" : {
+                        "POSITION" : 4,
+                        "NORMAL" : 5,
+                        "TEXCOORD_0" : 6
+                    },
+                    "indices" : 7,
+                    "material" : 1
+                }
+            ]
+        },
+        {
+            "name" : "FENDI_PAIZI",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 0,
+                        "NORMAL" : 1,
+                        "TEXCOORD_0" : 2
+                    },
+                    "indices" : 3,
+                    "material" : 2
+                },
+                {
+                    "attributes" : {
+                        "POSITION" : 4,
+                        "NORMAL" : 5,
+                        "TEXCOORD_0" : 6
+                    },
+                    "indices" : 7,
+                    "material" : 3
+                }
+            ]
+        }
+    ],
+    "textures" : [
+        {
+            "sampler" : 0,
+            "source" : 0
+        },
+        {
+            "sampler" : 0,
+            "source" : 1
+        },
+        {
+            "sampler" : 0,
+            "source" : 2
+        },
+        {
+            "sampler" : 0,
+            "source" : 3
+        },
+        {
+            "sampler" : 0,
+            "source" : 1
+        },
+        {
+            "sampler" : 0,
+            "source" : 2
+        }
+    ],
+    "images" : [
+        {
+            "mimeType" : "image/jpeg",
+            "name" : "morenhuang_banzi-1",
+            "uri" : "morenhuang_banzi-1.jpg"
+        },
+        {
+            "mimeType" : "image/jpeg",
+            "name" : "FINDI_TOUMING01_nomarl1",
+            "uri" : "FINDI_TOUMING01_nomarl1.jpg"
+        },
+        {
+            "mimeType" : "image/png",
+            "name" : "FINDI_TOUMING01_Basecoler",
+            "uri" : "FINDI_TOUMING01_Basecoler.png"
+        },
+        {
+            "mimeType" : "image/jpeg",
+            "name" : "lanse_banzi-1",
+            "uri" : "lanse_banzi-1.jpg"
+        }
+    ],
+    "accessors" : [
+        {
+            "bufferView" : 0,
+            "componentType" : 5126,
+            "count" : 1600,
+            "max" : [
+                0.10123427957296371,
+                0.03127918019890785,
+                0.008733176626265049
+            ],
+            "min" : [
+                -0.10123410820960999,
+                -0.10365482419729233,
+                0.0041909185238182545
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 1,
+            "componentType" : 5126,
+            "count" : 1600,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 2,
+            "componentType" : 5126,
+            "count" : 1600,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 3,
+            "componentType" : 5123,
+            "count" : 4992,
+            "type" : "SCALAR"
+        },
+        {
+            "bufferView" : 4,
+            "componentType" : 5126,
+            "count" : 10,
+            "max" : [
+                0.02296818420290947,
+                0.023241642862558365,
+                0.008665970526635647
+            ],
+            "min" : [
+                -0.02296818420290947,
+                -0.09447882324457169,
+                0.006555579602718353
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 5,
+            "componentType" : 5126,
+            "count" : 10,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 6,
+            "componentType" : 5126,
+            "count" : 10,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 7,
+            "componentType" : 5123,
+            "count" : 12,
+            "type" : "SCALAR"
+        },
+        {
+            "bufferView" : 8,
+            "componentType" : 5126,
+            "count" : 55,
+            "max" : [
+                2.25
+            ],
+            "min" : [
+                0
+            ],
+            "type" : "SCALAR"
+        },
+        {
+            "bufferView" : 9,
+            "componentType" : 5126,
+            "count" : 55,
+            "type" : "VEC4"
+        },
+        {
+            "bufferView" : 10,
+            "componentType" : 5126,
+            "count" : 55,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 11,
+            "componentType" : 5126,
+            "count" : 55,
+            "type" : "VEC4"
+        },
+        {
+            "bufferView" : 12,
+            "componentType" : 5126,
+            "count" : 55,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 13,
+            "componentType" : 5126,
+            "count" : 55,
+            "type" : "VEC4"
+        },
+        {
+            "bufferView" : 14,
+            "componentType" : 5126,
+            "count" : 55,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 15,
+            "componentType" : 5126,
+            "count" : 55,
+            "type" : "VEC4"
+        },
+        {
+            "bufferView" : 16,
+            "componentType" : 5126,
+            "count" : 55,
+            "type" : "VEC3"
+        }
+    ],
+    "bufferViews" : [
+        {
+            "buffer" : 0,
+            "byteLength" : 19200,
+            "byteOffset" : 0
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 19200,
+            "byteOffset" : 19200
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 12800,
+            "byteOffset" : 38400
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 9984,
+            "byteOffset" : 51200
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 120,
+            "byteOffset" : 61184
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 120,
+            "byteOffset" : 61304
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 80,
+            "byteOffset" : 61424
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 24,
+            "byteOffset" : 61504
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 220,
+            "byteOffset" : 61528
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 880,
+            "byteOffset" : 61748
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 660,
+            "byteOffset" : 62628
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 880,
+            "byteOffset" : 63288
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 660,
+            "byteOffset" : 64168
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 880,
+            "byteOffset" : 64828
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 660,
+            "byteOffset" : 65708
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 880,
+            "byteOffset" : 66368
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 660,
+            "byteOffset" : 67248
+        }
+    ],
+    "samplers" : [
+        {
+            "magFilter" : 9729,
+            "minFilter" : 9987
+        }
+    ],
+    "buffers" : [
+        {
+            "byteLength" : 67908,
+            "uri" : "banzi2.bin"
+        }
+    ]
+}
