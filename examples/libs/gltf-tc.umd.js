@@ -446,7 +446,7 @@
     }
 
     async loadTexture(textureIndex) {
-      console.log('loadTexture', textureIndex)
+      console.log('loadTexture from gltf-tc.umd.js', textureIndex)
       const { parser, name } = this;
       const json = parser.json;
       const textureDef = json.textures[textureIndex];
