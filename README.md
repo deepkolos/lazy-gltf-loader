@@ -28,7 +28,6 @@ loader
   })
   .then(gltf => {
     console.log(gltf);
-    scene.add(gltf.scene);
 
     gltf.parser
       .lazyNodes(['FENDI_PAIZI.001', 'close-red'])
@@ -52,9 +51,34 @@ loader
 
 ## Blender 设置 mesh 动画复用方法
 
+> 合并 mesh
+
+<img
+  src="https://raw.githubusercontent.com/deepkolos/lazy-gltf-loader/master/docs/blender_share_mesh.jpg"
+  width="300"
+  alt=""
+/>
+
+> 合并 material
+
+<img
+  src="https://raw.githubusercontent.com/deepkolos/lazy-gltf-loader/master/docs/blender_share_material.jpg"
+  width="300"
+  alt=""
+/>
+
+> 合并 texture
+
+<img
+  src="https://raw.githubusercontent.com/deepkolos/lazy-gltf-loader/master/docs/blender_share_texture.jpg"
+  width="300"
+  alt=""
+/>
+
 ## TODO
 
 0. 批量切换时候，全部加载完成后再挂载
+1. 合并 source, sampler, extensions 相同的 texture（done
 
 ### [CHANGELOG](https://github.com/deepkolos/lazy-gltf-loader/blob/master/CHANGELOG.md)
 
