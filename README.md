@@ -49,7 +49,7 @@ loader
   });
 ```
 
-## Blender 设置 mesh 动画复用方法
+## Blender 设置 mesh material texture 动画复用方法
 
 > 合并 mesh
 
@@ -75,10 +75,22 @@ loader
   alt=""
 />
 
+> 动画独立化
+
+<img
+  src="https://raw.githubusercontent.com/deepkolos/lazy-gltf-loader/master/docs/blender_independent_animation.jpg"
+  width="300"
+  alt=""
+/>
+
 ## TODO
 
 0. 批量切换时候，全部加载完成后再挂载
 1. 合并 source, sampler, extensions 相同的 texture（done
+
+## 已知问题
+
+0. 动画有 samplers.output 冗余，input 复用的问题
 
 ### [CHANGELOG](https://github.com/deepkolos/lazy-gltf-loader/blob/master/CHANGELOG.md)
 
