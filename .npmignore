@@ -1,6 +1,7 @@
 node_modules
 src-115
 examples
+docs
 demo.gif
 rollup.config.js
 pnpm-lock.yaml

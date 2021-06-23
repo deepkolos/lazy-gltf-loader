@@ -16,6 +16,10 @@
 
 ## 使用
 
+```sh
+> pnpm/npm i -S lazy-gltf-loader
+```
+
 ```js
 import * as THREE from 'three';
 import { LazyGLTFLoader } from 'lazy-gltf-loader';
@@ -86,7 +90,7 @@ loader
 ## TODO
 
 0. 批量切换时候，全部加载完成后再挂载
-1. 合并 source, sampler, extensions 相同的 texture（done
+1. blender 的合并 texture 不完全，导出的 gltf 会多个相同 source(见 examples/banzi2/banzi2.gltf), sampler 的 texture，目前通过修改 texture cacheKey 实现合并
 
 ## 已知问题
 
