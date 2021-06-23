@@ -4079,14 +4079,32 @@ class LazyGLTFParser extends GLTFParser {
   }
 
   // api
-  lazyNode(name) {
-    const loadFn = this.lazyLoadFns.get(name);
-
-    return loadFn ? loadFn() : Promise.reject('no exist');
+  getLazyNodeParent(name) {
+    const action = this.lazyLoadFns.get(name);
+    return action ? action.parent : null;
   }
 
-  lazyNodes(names) {
-    return Promise.all(names.map(name => this.lazyNode(name)));
+  lazyNode(name, autoMount = true) {
+    const action = this.lazyLoadFns.get(name);
+    return action
+      ? action.load().then(node => {
+          autoMount && action.parent.add(node);
+          return node;
+        })
+      : Promise.reject('no exist');
+  }
+
+  lazyNodes(names, autoMount = true) {
+    return Promise.all(names.map(name => this.lazyNode(name, false))).then(
+      nodes => {
+        autoMount &&
+          nodes.forEach((node, i) => {
+            const action = this.lazyLoadFns.get(names[i]);
+            action.parent.add(node);
+          });
+        return nodes;
+      },
+    );
   }
 
   lazyAnimation(name) {
@@ -4115,7 +4133,7 @@ class LazyGLTFParser extends GLTFParser {
   }
 }
 
-function buildNodeHierachy(nodeId, parentObject, json, parser) {
+function buildNodeHierachy(nodeId, parentObject, json, parser, lazy) {
   const nodeDef = json.nodes[nodeId];
 
   return parser
@@ -4177,7 +4195,7 @@ function buildNodeHierachy(nodeId, parentObject, json, parser) {
     })
     .then(function (node) {
       // build node hierachy
-      parentObject.add(node);
+      !lazy && parentObject.add(node);
 
       const pending = [];
 
@@ -4211,14 +4229,18 @@ function buildNodeChild(pending, children, parent, json, parser) {
       pending.push(promise);
 
       if (includeMatched || excludeMatched)
-        parser.lazyLoadFns.set(childDef.name, () => promise);
+        parser.lazyLoadFns.set(childDef.name, { parent, load: () => promise });
     } else {
-      const load = () => {
-        load.promise =
-          load.promise || buildNodeHierachy(childNodeId, parent, json, parser);
-        return load.promise;
+      const action = {
+        parent,
+        load() {
+          action.promise =
+            action.promise ||
+            buildNodeHierachy(childNodeId, parent, json, parser, true);
+          return action.promise;
+        },
       };
-      parser.lazyLoadFns.set(childDef.name, load);
+      parser.lazyLoadFns.set(childDef.name, action);
     }
   }
 }
