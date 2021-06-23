@@ -10,7 +10,7 @@
 
 <img
   src="https://raw.githubusercontent.com/deepkolos/lazy-gltf-loader/master/demo.gif"
-  width="250"
+  width="350"
   alt=""
 />
 
