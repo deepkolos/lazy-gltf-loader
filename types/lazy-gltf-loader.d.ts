@@ -31,10 +31,13 @@ export class LazyGLTFLoader extends GLTFLoader {
   load(
     url: string,
     onLoad: (gltf: GLTF) => void,
-    cfg?: LazyCfg,
+    cfg?: LazyCfg | ((event: ProgressEvent) => void),
     onError?: (event: ErrorEvent) => void,
   ): void;
-  loadAsync(url: string, cfg?: LazyCfg): Promise<GLTF>;
+  loadAsync(
+    url: string,
+    cfg?: LazyCfg | ((event: ProgressEvent) => void),
+  ): Promise<GLTF>;
 
   parse(
     data: ArrayBuffer | string,
