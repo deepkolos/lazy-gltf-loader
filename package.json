@@ -1,6 +1,6 @@
 {
   "name": "lazy-gltf-loader",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "一个能让 GLTF 局部懒加载的 Loader",
   "main": "dist/lazy-gltf-loader.cjs.js",
   "module": "dist/lazy-gltf-loader.esm.js",
