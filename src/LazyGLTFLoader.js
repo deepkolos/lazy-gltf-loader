@@ -7,7 +7,7 @@ import {
 } from './GLTFLoader.js';
 
 export class LazyGLTFLoader extends GLTFLoader {
-  parse(data, path, onLoad, onError, cfg) {
+  parse(data, path, onLoad, onError, Parser, cfg) {
     super.parse(data, path, onLoad, onError, LazyGLTFParser, cfg);
   }
 }

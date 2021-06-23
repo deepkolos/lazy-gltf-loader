@@ -44,6 +44,7 @@ export class LazyGLTFLoader extends GLTFLoader {
     path: string,
     onLoad: (gltf: GLTF) => void,
     onError?: (event: ErrorEvent) => void,
+    Parser?: GLTFParser,
     cfg: { include?: Array<string>; exclude?: Array<string> },
   ): void;
 }

@@ -126,7 +126,7 @@
 
 						scope.manager.itemEnd( url );
 
-					}, _onError, cfg );
+					}, _onError, GLTFParser, cfg );
 
 				} catch ( e ) {
 
@@ -193,7 +193,7 @@
 
 		}
 
-		parse( data, path, onLoad, onError, Parser = GLTFParser, parserCfg ) {
+		parse( data, path, onLoad, onError, Parser, parserCfg ) {
 
 			let content;
 			const extensions = {};
@@ -3985,7 +3985,7 @@
 	}
 
 	class LazyGLTFLoader extends GLTFLoader {
-	  parse(data, path, onLoad, onError, cfg) {
+	  parse(data, path, onLoad, onError, Parser, cfg) {
 	    super.parse(data, path, onLoad, onError, LazyGLTFParser, cfg);
 	  }
 	}
