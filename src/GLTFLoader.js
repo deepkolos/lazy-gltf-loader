@@ -113,10 +113,22 @@ class GLTFLoader extends Loader {
 
 	}
 
-	load( url, onLoad, cfg = {}, onError ) {
+	load( url, onLoad, cfg, onError ) {
 
 		const scope = this;
-		const onProgress = cfg.onProgress;
+		let onProgress;
+
+		// extends onProgress
+		if ( typeof cfg === 'function' ) {
+
+			onProgress = cfg;
+			cfg = {};
+
+		} else {
+
+			onProgress = cfg.onProgress;
+
+		}
 
 		let resourcePath;
 
@@ -2210,7 +2222,15 @@ export class GLTFParser {
 	 */
 	getDependency( type, index ) {
 
-		const cacheKey = type + ':' + index;
+		let cacheKey = type + ':' + index;
+
+		if ( type == 'texture' ) {
+
+			const textureDef = this.json.textures[index];
+			cacheKey = type + ':' + textureDef.sampler + ':' + textureDef.source + ':' + JSON.stringify( textureDef.extensions );
+
+		}
+
 		let dependency = this.cache.get( cacheKey );
 
 		if ( ! dependency ) {

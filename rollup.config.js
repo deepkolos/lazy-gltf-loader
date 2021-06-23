@@ -1,6 +1,7 @@
 import json from '@rollup/plugin-json';
 import commonjs from '@rollup/plugin-commonjs';
 import resolve from '@rollup/plugin-node-resolve';
+import { terser } from 'rollup-plugin-terser';
 import pkg from './package.json';
 
 const plugins = [json(), resolve(), commonjs({ ignoreDynamicRequires: true })];
@@ -20,5 +21,13 @@ export default [
     ],
     plugins,
     external: ['three'],
+  },
+  {
+    input: 'examples/main.js',
+    output: { file: 'examples/main.min.js', format: 'iife' },
+    plugins: [
+      ...plugins,
+      terser({ output: { comments: false } })
+    ],
   },
 ];

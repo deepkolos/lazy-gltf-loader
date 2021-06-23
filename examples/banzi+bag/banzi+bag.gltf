@@ -69,7 +69,7 @@
             ],
             "name" : "close-brown",
             "translation" : [
-                0.3861899971961975,
+                0.3093189001083374,
                 0,
                 0
             ]
@@ -109,7 +109,12 @@
                 6,
                 7
             ],
-            "name" : "close-red"
+            "name" : "close-red",
+            "translation" : [
+                0.30935922265052795,
+                0,
+                0
+            ]
         },
         {
             "children" : [
@@ -205,27 +210,13 @@
             }
         },
         {
-            "alphaMode" : "BLEND",
-            "name" : "FINDI_TOUMING.001",
-            "normalTexture" : {
-                "index" : 3
-            },
-            "pbrMetallicRoughness" : {
-                "baseColorTexture" : {
-                    "index" : 4
-                },
-                "metallicFactor" : 0.24590164422988892,
-                "roughnessFactor" : 0.2185792326927185
-            }
-        },
-        {
             "extensions" : {
                 "KHR_materials_unlit" : {}
             },
             "name" : "ban_Unlit.001",
             "pbrMetallicRoughness" : {
                 "baseColorTexture" : {
-                    "index" : 5
+                    "index" : 3
                 },
                 "metallicFactor" : 0,
                 "roughnessFactor" : 0.9
@@ -235,17 +226,17 @@
             "doubleSided" : true,
             "name" : "FINDI_bag_back.003",
             "normalTexture" : {
-                "index" : 6
+                "index" : 4
             },
             "occlusionTexture" : {
-                "index" : 7
+                "index" : 5
             },
             "pbrMetallicRoughness" : {
                 "baseColorTexture" : {
-                    "index" : 8
+                    "index" : 6
                 },
                 "metallicRoughnessTexture" : {
-                    "index" : 7
+                    "index" : 5
                 }
             }
         },
@@ -253,17 +244,17 @@
             "doubleSided" : true,
             "name" : "FINDI_bag_front.003",
             "normalTexture" : {
-                "index" : 9
+                "index" : 7
             },
             "occlusionTexture" : {
-                "index" : 10
+                "index" : 8
             },
             "pbrMetallicRoughness" : {
                 "baseColorTexture" : {
-                    "index" : 11
+                    "index" : 9
                 },
                 "metallicRoughnessTexture" : {
-                    "index" : 10
+                    "index" : 8
                 }
             }
         },
@@ -271,17 +262,17 @@
             "doubleSided" : true,
             "name" : "FINDI_bag_back.002",
             "normalTexture" : {
-                "index" : 12
+                "index" : 10
             },
             "occlusionTexture" : {
-                "index" : 13
+                "index" : 11
             },
             "pbrMetallicRoughness" : {
                 "baseColorTexture" : {
-                    "index" : 14
+                    "index" : 12
                 },
                 "metallicRoughnessTexture" : {
-                    "index" : 13
+                    "index" : 11
                 }
             }
         },
@@ -289,17 +280,17 @@
             "doubleSided" : true,
             "name" : "FINDI_bag_front.002",
             "normalTexture" : {
-                "index" : 15
+                "index" : 13
             },
             "occlusionTexture" : {
-                "index" : 16
+                "index" : 14
             },
             "pbrMetallicRoughness" : {
                 "baseColorTexture" : {
-                    "index" : 17
+                    "index" : 15
                 },
                 "metallicRoughnessTexture" : {
-                    "index" : 16
+                    "index" : 14
                 }
             }
         }
@@ -338,7 +329,7 @@
                         "TEXCOORD_0" : 2
                     },
                     "indices" : 3,
-                    "material" : 2
+                    "material" : 0
                 },
                 {
                     "attributes" : {
@@ -347,40 +338,40 @@
                         "TEXCOORD_0" : 6
                     },
                     "indices" : 7,
+                    "material" : 2
+                }
+            ]
+        },
+        {
+            "name" : "\u7f51\u683c.013",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 8,
+                        "NORMAL" : 9,
+                        "TEXCOORD_0" : 10,
+                        "TEXCOORD_1" : 11
+                    },
+                    "indices" : 12,
                     "material" : 3
                 }
             ]
         },
         {
-            "name" : "\u7f51\u683c.013",
+            "name" : "\u7f51\u683c.012",
             "primitives" : [
                 {
                     "attributes" : {
-                        "POSITION" : 8,
-                        "NORMAL" : 9,
-                        "TEXCOORD_0" : 10,
-                        "TEXCOORD_1" : 11
+                        "POSITION" : 13,
+                        "NORMAL" : 14,
+                        "TEXCOORD_0" : 15
                     },
-                    "indices" : 12,
+                    "indices" : 16,
                     "material" : 4
                 }
             ]
         },
         {
-            "name" : "\u7f51\u683c.012",
-            "primitives" : [
-                {
-                    "attributes" : {
-                        "POSITION" : 13,
-                        "NORMAL" : 14,
-                        "TEXCOORD_0" : 15
-                    },
-                    "indices" : 16,
-                    "material" : 5
-                }
-            ]
-        },
-        {
             "name" : "\u7f51\u683c.013",
             "primitives" : [
                 {
@@ -391,7 +382,7 @@
                         "TEXCOORD_1" : 11
                     },
                     "indices" : 12,
-                    "material" : 6
+                    "material" : 5
                 }
             ]
         },
@@ -405,7 +396,7 @@
                         "TEXCOORD_0" : 15
                     },
                     "indices" : 16,
-                    "material" : 7
+                    "material" : 6
                 }
             ]
         }
@@ -422,14 +413,6 @@
         {
             "sampler" : 0,
             "source" : 2
-        },
-        {
-            "sampler" : 0,
-            "source" : 0
-        },
-        {
-            "sampler" : 0,
-            "source" : 1
         },
         {
             "sampler" : 0,

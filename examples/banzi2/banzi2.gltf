@@ -161,7 +161,7 @@
         },
         {
             "alphaMode" : "BLEND",
-            "name" : "FINDI_TOUMING",
+            "name" : "FINDI_TOUMING.001",
             "normalTexture" : {
                 "index" : 1
             },
@@ -188,7 +188,7 @@
         },
         {
             "alphaMode" : "BLEND",
-            "name" : "FINDI_TOUMING.001",
+            "name" : "FINDI_TOUMING",
             "normalTexture" : {
                 "index" : 4
             },
