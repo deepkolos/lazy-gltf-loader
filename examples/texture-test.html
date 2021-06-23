@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>texture test</title>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+      }
+      canvas {
+        display: block;
+      }
+      .can {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        text-shadow: 0 0 2px white;
+        margin-top: 15px;
+      }
+      .desc {
+        text-align: center;
+        font-size: small;
+        color: #123456;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="can">
+      <div class="desc">
+        test creating texture with same source, sampler and extensions or not<br />
+        open console to see logs
+      </div>
+    </div>
+    <script src="https://threejs.org/build/three.min.js"></script>
+    <script src="./libs/GLTFLoader.js"></script>
+    <script src="./libs/GLTFLoader-patched.js"></script>
+    <script src="./libs/gltf-tc.umd.js"></script>
+    <script>
+      const THREE = window.THREE;
+      const GLTFGPUCompressedTexture =
+        window.GLTFGPUCompressedTexture.GLTFGPUCompressedTexture;
+
+      const { innerWidth: w, innerHeight: h } = window;
+      const renderer = new THREE.WebGLRenderer({
+        antialias: true,
+        alpha: true,
+      });
+      const camera = new THREE.PerspectiveCamera(75, w / h, 0.1, 100);
+      const scene = new THREE.Scene();
+      const clock = new THREE.Clock();
+      const mixer = new THREE.AnimationMixer(scene);
+      const originLoader = new THREE.GLTFLoader();
+      const patchedLoader = new THREE.GLTFLoaderPatched();
+
+      originLoader.register(
+        parser =>
+          new GLTFGPUCompressedTexture(parser, renderer, {
+            CompressedTexture: THREE.CompressedTexture,
+          }),
+      );
+
+      patchedLoader.register(
+        parser =>
+          new GLTFGPUCompressedTexture(parser, renderer, {
+            CompressedTexture: THREE.CompressedTexture,
+          }),
+      );
+
+      camera.position.z = 2;
+      renderer.setPixelRatio(devicePixelRatio);
+      renderer.setSize(w, h);
+      renderer.outputEncoding = THREE.sRGBEncoding;
+      scene.add(new THREE.AmbientLight(0xffffff, 1));
+      scene.add(new THREE.DirectionalLight(0xffffff, 1));
+
+      console.log('=== original GLTFLoader ===');
+      originLoader.loadAsync('./gltf-tc/banzi2/banzi2.gltf').then(gltf => {
+        gltf.scene.position.x = 0.3;
+        scene.add(gltf.scene);
+
+        console.log('=== patched GLTFLoader ===');
+        patchedLoader.loadAsync('./gltf-tc/banzi2/banzi2.gltf').then(gltf => {
+          gltf.scene.position.x = -0.3;
+          scene.add(gltf.scene);
+        });
+      });
+
+      const render = () => {
+        renderer.render(scene, camera);
+        requestAnimationFrame(render);
+      };
+
+      document.body.append(renderer.domElement);
+      render();
+    </script>
+  </body>
+</html>
