@@ -6,7 +6,13 @@
 
 ## DEMO
 
+[DEMO 地址](https://deepkolos.github.io/lazy-gltf-loader/examples/index.html)
 
+<img
+  src="https://raw.githubusercontent.com/deepkolos/lazy-gltf-loader/master/demo.gif"
+  width="250"
+  alt=""
+/>
 
 ## 使用
 
@@ -45,8 +51,6 @@ loader
 ```
 
 ## Blender 设置 mesh 动画复用方法
-
-
 
 ## TODO
 
