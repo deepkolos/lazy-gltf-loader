@@ -65,7 +65,7 @@
 				onProgress = cfg;
 				cfg = {};
 
-			} else {
+			} else if ( typeof cfg === 'object' ) {
 
 				onProgress = cfg.onProgress;
 

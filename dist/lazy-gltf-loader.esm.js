@@ -61,7 +61,7 @@ class GLTFLoader extends Loader {
 			onProgress = cfg;
 			cfg = {};
 
-		} else {
+		} else if ( typeof cfg === 'object' ) {
 
 			onProgress = cfg.onProgress;
 
