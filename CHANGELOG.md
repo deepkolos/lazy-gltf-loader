@@ -1,3 +1,12 @@
+## [1.0.2](https://github.com/deepkolos/lazy-gltf-loader/compare/v1.0.1...v1.0.2) (2021-06-25)
+
+
+### Bug Fixes
+
+* args onProgress ([7f20004](https://github.com/deepkolos/lazy-gltf-loader/commit/7f200044844ca241c9a0a5dd641fe7aa19a4e090))
+
+
+
 ## [1.0.1](https://github.com/deepkolos/lazy-gltf-loader/compare/90d6f5041d4b7d86cac300364ea3fdab3c18e006...v1.0.1) (2021-06-23)
 
 
