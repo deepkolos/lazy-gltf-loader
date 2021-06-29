@@ -3997,11 +3997,13 @@ class LazyGLTFParser extends GLTFParser {
     this.lazyCfg = options.parserCfg || {};
     this.lazyCfg.include = this.lazyCfg.include || [];
     this.lazyCfg.exclude = this.lazyCfg.exclude || [];
+    this.lazyCfg.childOfNodes = this.lazyCfg.childOfNodes || [];
   }
 
   // overwrite
   parse(onLoad, onError) {
-    if (!this.lazyCfg.include.length && !this.lazyCfg.exclude.length)
+    const { include, exclude, childOfNodes } = this.lazyCfg;
+    if (!include.length && !exclude.length && !childOfNodes.length)
       return super.parse(onLoad, onError);
 
     const parser = this;
@@ -4074,7 +4076,7 @@ class LazyGLTFParser extends GLTFParser {
     const pending = [];
 
     if (sceneDef.nodes)
-      buildNodeChild(pending, sceneDef.nodes, scene, json, parser);
+      buildNodeChild(pending, sceneDef.nodes, scene, json, parser, sceneDef);
 
     return Promise.all(pending).then(function () {
       return scene;
@@ -4203,30 +4205,33 @@ function buildNodeHierachy(nodeId, parentObject, json, parser, lazy) {
       const pending = [];
 
       if (nodeDef.children)
-        buildNodeChild(pending, nodeDef.children, node, json, parser);
+        buildNodeChild(pending, nodeDef.children, node, json, parser, nodeDef);
 
       return Promise.all(pending).then(() => node);
     });
 }
 
-function buildNodeChild(pending, children, parent, json, parser) {
-  const { include, exclude } = parser.lazyCfg;
+function buildNodeChild(pending, children, parent, json, parser, parentDef) {
+  const { include, exclude, childOfNodes } = parser.lazyCfg;
   const [includeMatched, excludeMatched] = children.reduce((acc, curr) => {
     acc[0] = acc[0] || include.includes(json.nodes[curr].name);
     acc[1] = acc[1] || exclude.includes(json.nodes[curr].name);
     return acc;
   }, []);
 
+  const oneOfChildOfNodes = childOfNodes.includes(parentDef.name);
+
   for (let i = 0, il = children.length; i < il; i++) {
     const childNodeId = children[i];
     const childDef = json.nodes[childNodeId];
     const included = include.includes(childDef.name);
     const excluded = exclude.includes(childDef.name);
-
+    
     if (
-      (!includeMatched && !excludeMatched) ||
-      (includeMatched && included) ||
-      (excludeMatched && !excluded)
+      !oneOfChildOfNodes &&
+      ((!includeMatched && !excludeMatched) ||
+        (includeMatched && included) ||
+        (excludeMatched && !excluded))
     ) {
       const promise = buildNodeHierachy(childNodeId, parent, json, parser);
       pending.push(promise);

@@ -5,6 +5,7 @@ import { GLTFGPUCompressedTexture } from 'gltf-gpu-compressed-texture';
 
 const $btnLoadAnother = document.getElementById('btnLoadAnother');
 const $btnSwitchColor = document.getElementById('btnSwitchColor');
+const $btnLoadPart = document.getElementById('btnLoadPart');
 
 console.log('THREE', THREE.REVISION);
 console.log(
@@ -93,6 +94,31 @@ gltfLoader
       closeBrownNode.visible = flag;
       closeRedNode.visible = !flag;
       flag = !flag;
+    });
+  });
+
+// childOfNodes
+gltfLoader
+  .loadAsync('./banzi+bag/banzi+bag.gltf', {
+    childOfNodes: ['Group', 'Group.001'],
+  })
+  .then(gltf => {
+    console.log(gltf);
+    scene.add(gltf.scene);
+    gltf.scene.position.y = 0.3;
+
+    $btnLoadPart.disabled = false;
+    once($btnLoadPart, 'click', async () => {
+      const mesh = await gltf.parser.lazyNode('FENDI_PAIZI');
+      mesh.position.x = 0.22;
+
+      $btnLoadPart.innerText = '加载另一部分';
+
+      once($btnLoadPart, 'click', async () => {
+        $btnLoadPart.disabled = true;
+        const mesh = await gltf.parser.lazyNode('close-brown');
+        mesh.position.x = 0.22;
+      });
     });
   });
 
