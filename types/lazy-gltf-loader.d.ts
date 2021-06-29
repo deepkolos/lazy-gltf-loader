@@ -40,6 +40,7 @@ interface LazyCfg {
   onProgress?: (event: ProgressEvent) => void;
   include?: Array<string>;
   exclude?: Array<string>;
+  childOfNodes?: Array<string>;
 }
 
 export class LazyGLTFLoader extends GLTFLoader {
