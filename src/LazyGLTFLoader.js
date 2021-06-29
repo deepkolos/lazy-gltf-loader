@@ -23,6 +23,9 @@ export class LazyGLTFParser extends GLTFParser {
 
   // overwrite
   parse(onLoad, onError) {
+    if (!this.lazyCfg.include.length && !this.lazyCfg.exclude.length)
+      return super.parse(onLoad, onError);
+
     const parser = this;
     const json = this.json;
     const extensions = this.extensions;
