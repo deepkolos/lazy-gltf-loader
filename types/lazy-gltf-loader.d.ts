@@ -30,6 +30,7 @@ export interface GLTF {
  *
  * include: ['node1']: 加载node1极其子树
  * exclude: ['node1']: 加载node0子节点除了node1之外的节点极其子树
+ * childOfNodes: ['node0']: node0下子节点全部懒加载
  *
  * 如果命中了include则不再命中exclude
  *
