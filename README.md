@@ -95,6 +95,7 @@ loader
 
 0. 批量切换时候，全部加载完成后再挂载（done 新增 autoMount 选项，而 lazyNodes 的行为是加载完成再批量 mount，需要手动挂载，则需要通过 getLazyNodeParent 获取对应父节点
 1. blender 的合并 texture 不完全，导出的 gltf 会多个相同 source(见 examples/banzi2/banzi2.gltf), sampler 的 texture，目前通过修改 texture cacheKey 实现合并
+2. 增加按照节点拆分动画，可避免动画独立化导致冗余问题
 
 ## 已知问题
 
