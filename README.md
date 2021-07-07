@@ -57,6 +57,8 @@ loader
 
 ## Blender 设置 mesh material texture 动画复用方法
 
+> blender有关联复制: ALT+D
+
 > 合并 mesh
 
 <img
