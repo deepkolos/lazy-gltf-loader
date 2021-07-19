@@ -57,7 +57,7 @@ loader
 
 ## Blender 设置 mesh material texture 动画复用方法
 
-> blender有关联复制: ALT+D
+> blender 有关联复制: ALT+D
 
 > 合并 mesh
 
@@ -71,6 +71,16 @@ loader
 
 <img
   src="https://raw.githubusercontent.com/deepkolos/lazy-gltf-loader/master/docs/blender_share_material.jpg"
+  width="300"
+  alt=""
+/>
+
+> 批量把 material 关联到节点
+
+安装 [MaterialUtilities](https://github.com/ChrisHinde/MaterialUtilities/) 最新版（直接下载.zip）
+
+<img
+  src="https://raw.githubusercontent.com/deepkolos/lazy-gltf-loader/master/docs/blender_link_material_to_node.jpg"
   width="300"
   alt=""
 />
