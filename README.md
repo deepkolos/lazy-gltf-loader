@@ -77,7 +77,7 @@ loader
 
 > 批量把 material 关联到节点
 
-安装 [MaterialUtilities](https://github.com/ChrisHinde/MaterialUtilities/) 最新版（直接下载.zip）
+安装 [MaterialUtilities](https://github.com/ChrisHinde/MaterialUtilities/) 最新版（直接下载.zip），通过`Shift+Q`打开面板（如果左边Shift不好使，试试右边的）
 
 <img
   src="https://raw.githubusercontent.com/deepkolos/lazy-gltf-loader/master/docs/blender_link_material_to_node.jpg"
