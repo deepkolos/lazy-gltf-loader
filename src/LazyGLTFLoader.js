@@ -130,8 +130,7 @@ export class LazyGLTFParser extends GLTFParser {
     lazyNodeNames.forEach(parentNodeName => {
       newAnimations.push(...this.splitAnimationByParent(parentNodeName));
     });
-    gltf.animations.push(...newAnimations);
-    console.log(gltf.animations);
+    gltf.animations && gltf.animations.push(...newAnimations);
   }
 
   getIndexOf(nodeName, type = 'nodes') {
