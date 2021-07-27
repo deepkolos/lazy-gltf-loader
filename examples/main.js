@@ -52,6 +52,7 @@ gltfLoader
       const mesh = await gltf.parser.lazyNode('FENDI_PAIZI.001');
       mesh.position.y = 0.22;
       playAnimation(gltf, 'an1_FENDI_PAIZI.001');
+      $btnLoadAnother.disabled = true;
     });
   });
 
@@ -70,6 +71,7 @@ gltfLoader
       const mesh = await gltf.parser.lazyNode('FENDI_PAIZI');
       mesh.position.x = 0.22;
       playAnimation(gltf, 'an1_FENDI_PAIZI.000');
+      $btnLoadAnother.disabled = true;
     });
   });
 
