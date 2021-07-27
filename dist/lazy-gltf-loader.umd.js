@@ -4000,6 +4000,138 @@
 	    this.lazyCfg.childOfNodes = this.lazyCfg.childOfNodes || [];
 	  }
 
+	  splitAnimationByParent(parentNodeName) {
+	    // helper
+	    const gltf = this.json;
+	    const self = this;
+	    this.cacheisChildOfCache = this.cacheisChildOfCache || {};
+	    const { cacheisChildOfCache } = this;
+
+	    function traverse(startNodeIndex, cb) {
+	      const nodeDef = gltf.nodes[startNodeIndex];
+	      const breakTraverse = cb(nodeDef, startNodeIndex);
+
+	      if (nodeDef.children && !breakTraverse) {
+	        for (let i = 0; i < nodeDef.children.length; i++) {
+	          const breakTraverse = traverse(nodeDef.children[i], cb);
+	          if (breakTraverse) return true;
+	        }
+	      }
+	      return breakTraverse;
+	    }
+
+	    function isChildOf(childNodeIndex, parentNodeName) {
+	      const cacheKey = parentNodeName + childNodeIndex;
+	      if (cacheisChildOfCache[cacheKey] !== undefined)
+	        return cacheisChildOfCache[cacheKey];
+
+	      const parentIndex = self.getIndexOf(parentNodeName);
+
+	      let isChild = false;
+	      traverse(parentIndex, (node, nodeIndex) => {
+	        if (nodeIndex === childNodeIndex) {
+	          cacheisChildOfCache[cacheKey] = true;
+	          isChild = true;
+	          return true;
+	        }
+	      });
+
+	      return isChild;
+	    }
+
+	    // main
+	    const newAnimations = [];
+	    gltf.animations &&
+	      gltf.animations.forEach(animation => {
+	        const matchIndexes = animation.channels
+	          .map((channel, index) => {
+	            if (isChildOf(channel.target.node, parentNodeName)) return index;
+	          })
+	          .filter(i => i !== undefined);
+
+	        const newChannels = matchIndexes.map(i => animation.channels[i]);
+	        // const newSamplers = matchIndexes.map(i => animation.samplers[i]);
+	        const newName = animation.name + '-' + parentNodeName;
+	        newAnimations.push({
+	          name: newName,
+	          samplers: animation.samplers,
+	          channels: newChannels,
+	        });
+	      });
+	    return newAnimations;
+	  }
+
+	  generateLazyAnimation() {
+	    const gltf = this.json;
+	    const lazyNodeNames = [];
+
+	    [...this.lazyCfg.include, ...this.lazyCfg.exclude].forEach(nodeName => {
+	      const nodeIndex = this.getIndexOf(nodeName);
+	      gltf.nodes.forEach(nodeDef => {
+	        if (nodeDef.children && nodeDef.children.includes(nodeIndex)) {
+	          lazyNodeNames.push(nodeDef.name);
+	          nodeDef.children.forEach(nodeIndex => {
+	            const nodeDef = gltf.nodes[nodeIndex];
+	            lazyNodeNames.push(nodeDef.name);
+	          });
+	        }
+	      });
+	    });
+
+	    this.lazyCfg.childOfNodes.forEach(parentNodeName => {
+	      // 找节点
+	      const nodeIndex = this.getIndexOf(parentNodeName);
+	      if (nodeIndex !== undefined) {
+	        const nodeDef = gltf.nodes[nodeIndex];
+	        if (nodeDef.children) {
+	          nodeDef.children.forEach(nodeIndex => {
+	            const nodeDef = gltf.nodes[nodeIndex];
+	            lazyNodeNames.push(nodeDef.name);
+	          });
+	        }
+	      }
+
+	      // 找场景
+	      const sceneIndex = this.getIndexOf(parentNodeName, 'scenes');
+	      if (sceneIndex !== undefined) {
+	        const sceneDef = gltf.scenes[sceneIndex];
+	        if (sceneDef.nodes) {
+	          sceneDef.nodes.forEach(nodeIndex => {
+	            const nodeDef = gltf.nodes[nodeIndex];
+	            lazyNodeNames.push(nodeDef.name);
+	          });
+	        }
+	      }
+	    });
+
+	    const newAnimations = [];
+	    lazyNodeNames.forEach(parentNodeName => {
+	      newAnimations.push(...this.splitAnimationByParent(parentNodeName));
+	    });
+	    gltf.animations && gltf.animations.push(...newAnimations);
+	  }
+
+	  getIndexOf(nodeName, type = 'nodes') {
+	    this.cacheNodeIndex = this.cacheNodeIndex || {};
+	    const cacheNodeIndex = this.cacheNodeIndex;
+
+	    if (cacheNodeIndex[nodeName] !== undefined) return cacheNodeIndex[nodeName];
+
+	    for (let i = 0; i < this.json[type].length; i++) {
+	      if (nodeName == this.json[type][i].name) {
+	        cacheNodeIndex[nodeName] === i;
+	        return i;
+	      }
+	    }
+	  }
+
+	  generateSceneName() {
+	    for (let i = 0; i < this.json.scenes.length; i++) {
+	      const sceneDef = this.json.scenes[i];
+	      sceneDef.name = sceneDef.name || 'Scene_' + i;
+	    }
+	  }
+
 	  // overwrite
 	  parse(onLoad, onError) {
 	    const { include, exclude, childOfNodes } = this.lazyCfg;
@@ -4014,6 +4146,9 @@
 	    this.cache.removeAll();
 	    this.lazyLoadFns = new Map();
 	    this.lazyGLTFAnimations = [];
+
+	    this.generateSceneName();
+	    this.generateLazyAnimation();
 
 	    // Mark the special nodes/meshes in json for efficient parse
 	    this._invokeAll(function (ext) {
@@ -4113,19 +4248,21 @@
 	  }
 
 	  lazyAnimation(name) {
+	    /** @type {Array<any>} */
 	    const animations = this.json.animations;
-	    const loaded = this.lazyGLTFAnimations.filter(i => i.name === name);
+	    const loaded = this.lazyGLTFAnimations.find(i => i.name === name);
 
-	    if (loaded.length) return Promise.resolve(loaded[0]);
+	    if (loaded) return Promise.resolve(loaded);
 
-	    for (let i = 0, il = animations.length; i < il; i++) {
-	      if (name === animations[i].name) {
-	        return this.loadAnimation(i).then(animation => {
-	          this.lazyGLTFAnimations.push(animation);
-	          return animation;
-	        });
-	      }
-	    }
+	    const index = animations.findIndex(i => i.name === name);
+
+	    if (index > -1)
+	      return this.loadAnimation(index).then(animation => {
+	        this.lazyGLTFAnimations.push(animation);
+	        return animation;
+	      });
+
+	    return Promise.reject('animation none found');
 	  }
 
 	  lazyAnimations(names) {
@@ -4135,6 +4272,8 @@
 	  dispose() {
 	    this.lazyLoadFns.clear();
 	    this.lazyGLTFAnimations.length = 0;
+	    this.cacheNodeIndex = null;
+	    this.cacheisChildOfCache = null;
 	  }
 	}
 
@@ -4226,7 +4365,7 @@
 	    const childDef = json.nodes[childNodeId];
 	    const included = include.includes(childDef.name);
 	    const excluded = exclude.includes(childDef.name);
-	    
+
 	    if (
 	      !oneOfChildOfNodes &&
 	      ((!includeMatched && !excludeMatched) ||

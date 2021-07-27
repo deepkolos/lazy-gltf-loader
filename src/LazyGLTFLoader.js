@@ -270,19 +270,21 @@ export class LazyGLTFParser extends GLTFParser {
   }
 
   lazyAnimation(name) {
+    /** @type {Array<any>} */
     const animations = this.json.animations;
-    const loaded = this.lazyGLTFAnimations.filter(i => i.name === name);
+    const loaded = this.lazyGLTFAnimations.find(i => i.name === name);
 
-    if (loaded.length) return Promise.resolve(loaded[0]);
+    if (loaded) return Promise.resolve(loaded);
 
-    for (let i = 0, il = animations.length; i < il; i++) {
-      if (name === animations[i].name) {
-        return this.loadAnimation(i).then(animation => {
-          this.lazyGLTFAnimations.push(animation);
-          return animation;
-        });
-      }
-    }
+    const index = animations.findIndex(i => i.name === name);
+
+    if (index > -1)
+      return this.loadAnimation(index).then(animation => {
+        this.lazyGLTFAnimations.push(animation);
+        return animation;
+      });
+
+    return Promise.reject('animation none found');
   }
 
   lazyAnimations(names) {

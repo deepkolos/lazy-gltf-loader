@@ -30,7 +30,9 @@ scene.add(new THREE.AmbientLight(0xffffff, 1));
 scene.add(new THREE.DirectionalLight(0xffffff, 1));
 
 gltfLoader.register(parser => {
-  return new GLTFGPUCompressedTexture(parser, renderer, {
+  return new GLTFGPUCompressedTexture({
+    parser,
+    renderer,
     CompressedTexture: THREE.CompressedTexture,
   });
 });
