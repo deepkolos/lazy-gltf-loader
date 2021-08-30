@@ -59,7 +59,7 @@ loader
 
 > blender 有关联复制: ALT+D
 
-> 合并 mesh
+> 合并 mesh(BUG: 应用了vertex group的mesh体积仍翻倍)
 
 <img
   src="https://raw.githubusercontent.com/deepkolos/lazy-gltf-loader/master/docs/blender_share_mesh.jpg"
